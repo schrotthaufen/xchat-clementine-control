@@ -1,0 +1,2 @@
+xchat-clementine-control
+========================
