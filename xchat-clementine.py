@@ -19,7 +19,7 @@ def get_clem():
     print "\x02Either Clementine is not running or you have something wrong with your D-Bus setup."
     return None
 
-def command_np(word, word_eol, userdata):
+def get_metadata():
   clem = get_clem()
   
   if clem:
@@ -40,10 +40,25 @@ def command_np(word, word_eol, userdata):
            + " - " \
            + unicode(title).encode('utf-8')
 
-    xchat.command("me np: " + output)
+    return output
+
+def command_info(word, word_eol, userdata):
+  output = get_metadata()
+
+  if output:
+    print output
+
   return xchat.EAT_ALL
 
-def command_next(word, eord_eol, userdata):
+def command_np(word, word_eol, userdata):
+  output = get_metadata()
+  
+  if output:
+    xchat.command("me np: " + output)
+  
+  return xchat.EAT_ALL
+
+def command_next(word, word_eol, userdata):
   clem = get_clem()
 
   if clem:
@@ -52,7 +67,7 @@ def command_next(word, eord_eol, userdata):
 
   return xchat.EAT_ALL
 
-def command_prev(word, eord_eol, userdata):
+def command_prev(word, word_eol, userdata):
   clem = get_clem()
   
   if clem:
@@ -61,7 +76,7 @@ def command_prev(word, eord_eol, userdata):
 
   return xchat.EAT_ALL
 
-def command_play(word, eord_eol, userdata):
+def command_play(word, word_eol, userdata):
   clem = get_clem()
   
   if clem:
@@ -70,7 +85,7 @@ def command_play(word, eord_eol, userdata):
 
   return xchat.EAT_ALL
 
-def command_stop(word, eord_eol, userdata):
+def command_stop(word, word_eol, userdata):
   clem = get_clem()
 
   if clem:
@@ -79,7 +94,7 @@ def command_stop(word, eord_eol, userdata):
 
   return xchat.EAT_ALL
 
-def command_pause(word, eord_eol, userdata):
+def command_pause(word, word_eol, userdata):
   clem = get_clem()
 
   if clem:
@@ -89,6 +104,7 @@ def command_pause(word, eord_eol, userdata):
   return xchat.EAT_ALL
 
 xchat.hook_command("NP",    command_np,    help="Displays current playing song.")
+xchat.hook_command("NPP",   command_info,  help="Displays current playing song (without echo to channel).")
 xchat.hook_command("NEXT",  command_next,  help="Skips the current playing song.")
 xchat.hook_command("Prev",  command_prev,  help="Plays the last played song again.")
 xchat.hook_command("Play",  command_play,  help="Starts playing.")

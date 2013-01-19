@@ -5,6 +5,7 @@ Xchat plugin to control clementine
 
 Currently supports the following commands:
 * np    Displays current playing song.
+* npp   Displays current playing song (without echoing to channel).
 * play  Starts playing.
 * pause Pauses the current playing song.
 * stop  Stops current playing song.
