@@ -1,8 +1,9 @@
-"""Sadly I have no idea if this[1] really is the scripts origin, but it
-   looks like it is.
-   If you know who to credit for this version 1.0, please let me know.
-
-   [1] http://pastebin.com/dhnRyXAT
+"""
+This script has been around for quite some time and been modified by
+various people in the past.
+Credits for prior work go to:
+ * 2010 Ethan Best (http://is.gd/lcn87B)
+ * 2011 Shokora (http://digdilem.org/irc/index.cgi?entry=1809356959)
 """
 
 __module_name__ = "xchat-clementine"
@@ -21,11 +22,11 @@ def get_clem():
 
 def get_metadata():
   clem = get_clem()
-  
+
   if clem:
     clemp = bus.get_object('org.mpris.clementine', '/Player')
     clemmd = clemp.GetMetadata()
-    
+
     try:
       artist = clemmd['artist']
       album  = clemmd['album']
@@ -52,10 +53,10 @@ def command_info(word, word_eol, userdata):
 
 def command_np(word, word_eol, userdata):
   output = get_metadata()
-  
+
   if output:
     xchat.command("me np: " + output)
-  
+
   return xchat.EAT_ALL
 
 def command_next(word, word_eol, userdata):
@@ -69,7 +70,7 @@ def command_next(word, word_eol, userdata):
 
 def command_prev(word, word_eol, userdata):
   clem = get_clem()
-  
+
   if clem:
     clemp = bus.get_object('org.mpris.clementine', '/Player')
     clemp.Prev()
@@ -78,7 +79,7 @@ def command_prev(word, word_eol, userdata):
 
 def command_play(word, word_eol, userdata):
   clem = get_clem()
-  
+
   if clem:
     clemp = bus.get_object('org.mpris.clementine', '/Player')
     clemp.Play()
@@ -104,7 +105,7 @@ def command_pause(word, word_eol, userdata):
   return xchat.EAT_ALL
 
 xchat.hook_command("NP",    command_np,    help="Displays current playing song.")
-xchat.hook_command("NPP",   command_info,  help="Displays current playing song (without echo to channel).")
+xchat.hook_command("NPP",   command_info,  help="Displays current playing song (without echoing to channel).")
 xchat.hook_command("NEXT",  command_next,  help="Skips the current playing song.")
 xchat.hook_command("Prev",  command_prev,  help="Plays the last played song again.")
 xchat.hook_command("Play",  command_play,  help="Starts playing.")
